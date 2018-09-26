@@ -1,0 +1,42 @@
+﻿@model TransferTest.Models.Conta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Conta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Clientes.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clientes.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NConta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NConta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Saldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Saldo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Conta_Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

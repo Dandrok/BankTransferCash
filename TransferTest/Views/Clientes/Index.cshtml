@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TransferTest.Models.Clientes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Idade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sexo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Idade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sexo)
+        </td>
+        <td>
+            @Html.ActionLink("Transferir", "Transfer", new { id=item.Cliente_Id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Cliente_Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Cliente_Id }) |
+
+        </td>
+    </tr>
+}
+
+</table>

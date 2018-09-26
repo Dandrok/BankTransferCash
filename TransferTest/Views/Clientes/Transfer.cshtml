@@ -1,0 +1,116 @@
+﻿@model TransferTest.Models.ViewModel
+
+
+@{
+    /**/
+
+    ViewBag.Title = "Transfer";
+}
+
+<h2>Transfer</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Clientes</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Clientes.Cliente_Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Clientes.Cliente_Id, "Clientes", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Nome", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Clientes.Cliente_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Conta.NConta, "Conta", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Conta", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Clientes.Cliente_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Clientes.Cliente_Id, "Clientes", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Nome", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Clientes.Cliente_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Conta.NConta, "Conta", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Conta", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Clientes.Cliente_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div class="form-horizontal">
+
+        <form class="form-inline">
+            <div class="form-group">
+                <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+
+                </div>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Transfer Cash" class="btn btn-primary" />
+            </div>
+        </form>
+
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <!-- Atualização e comparação automática.-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Nome").change(function () {
+                $("#Conta").empty();
+                $("#Conta").append('<option value="0">[ Selecione uma Conta ]</option>');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetConta")',
+                    dataType: 'json',
+                    data: { Cliente_Id: $("#Nome").val() },
+                    success: function (data) {
+                        $.each(data, function (i, data) {
+                            $("#Conta").append('<option value="'
+                                +data.Cliente_Id+'">'
+                                +data.NConta+'</option>');
+                            });
+                    },
+                    error: function (ex) {
+                        alert('Falha ao buscar cidades.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
+
+}
